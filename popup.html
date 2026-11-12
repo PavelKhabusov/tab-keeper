@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font: 13px/1.4 system-ui, sans-serif; width: 270px; margin: 0; padding: 14px; color: #e6e6e6; background: #1e1f22; }
+    h1 { font-size: 14px; margin: 0 0 10px; font-weight: 600; }
+    .row { display: flex; align-items: center; justify-content: space-between; margin: 8px 0; gap: 8px; }
+    label { user-select: none; }
+    input[type="number"] { width: 56px; background: #2b2d31; color: #e6e6e6; border: 1px solid #3a3d42; border-radius: 6px; padding: 4px 6px; }
+    .switch { position: relative; width: 38px; height: 22px; flex: 0 0 auto; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; inset: 0; background: #3a3d42; border-radius: 22px; transition: .2s; cursor: pointer; }
+    .slider::before { content: ""; position: absolute; height: 16px; width: 16px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: .2s; }
+    input:checked + .slider { background: #3b82f6; }
+    input:checked + .slider::before { transform: translateX(16px); }
+    button { width: 100%; margin-top: 10px; padding: 8px; border: 0; border-radius: 8px; background: #3b82f6; color: #fff; font-weight: 600; cursor: pointer; }
+    button:hover { background: #2f6fe0; }
+    button.secondary { background: #2b2d31; color: #e6e6e6; border: 1px solid #3a3d42; }
+    button.secondary:hover { background: #34363b; }
+    .muted { color: #9aa0a6; font-size: 12px; }
+    hr { border: 0; border-top: 1px solid #2f3136; margin: 12px 0; }
+    .status { margin-top: 6px; }
+  </style>
+</head>
+<body>
+  <h1>Tab Keeper</h1>
+
+  <div class="row">
+    <label for="enabled">Enabled</label>
+    <label class="switch"><input type="checkbox" id="enabled"><span class="slider"></span></label>
+  </div>
+
+  <div class="row">
+    <label for="keepActive" title="How many most recently used tabs stay alive">Tabs to keep alive</label>
+    <input type="number" id="keepActive" min="1" max="20" step="1">
+  </div>
+
+  <div class="row">
+    <label for="protectPinned">Keep pinned tabs</label>
+    <label class="switch"><input type="checkbox" id="protectPinned"><span class="slider"></span></label>
+  </div>
+
+  <div class="row">
+    <label for="protectAudible">Keep tabs playing audio</label>
+    <label class="switch"><input type="checkbox" id="protectAudible"><span class="slider"></span></label>
+  </div>
+
+  <div class="row">
+    <label for="protectCalls" title="Tabs using the microphone, camera or screen sharing">Keep tabs in a call</label>
+    <label class="switch"><input type="checkbox" id="protectCalls"><span class="slider"></span></label>
+  </div>
+
+  <div class="row">
+    <label for="audibleHoldMin" title="How long a tab stays protected after audio stops">Keep after audio, min</label>
+    <input type="number" id="audibleHoldMin" min="0" max="120" step="1">
+  </div>
+
+  <div class="row">
+    <label for="graceSec" title="Don't discard a tab used within the last N seconds">Grace after use, sec</label>
+    <input type="number" id="graceSec" min="0" max="600" step="1">
+  </div>
+
+  <div class="row">
+    <label for="checkMinutes" title="How often the background alarm re-checks tabs">Check interval, min</label>
+    <input type="number" id="checkMinutes" min="1" max="60" step="1">
+  </div>
+
+  <hr>
+  <button id="discardNow">Discard others now</button>
+  <button id="reset" class="secondary">Reset settings</button>
+  <div class="status muted" id="status">…</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
